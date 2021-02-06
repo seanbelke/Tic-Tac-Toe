@@ -54,5 +54,3 @@ class Board
         string
     end
 end
-
-board = Board.new
