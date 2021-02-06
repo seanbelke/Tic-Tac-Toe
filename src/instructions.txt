@@ -1,0 +1,20 @@
+The rules are simple: 
+
+A player will be randomly picked to go first.  The two players will
+alternate picking spots to place their "marker", which will either
+be an "X" (for the player who goes first) or an "O" (for the player
+who goes second).  The goal is to be the first to get three of your
+marker in a row on the board.  This can happen horizontally by
+having all three columns of a particular row occupied by your
+marker, vertically by having all three rows in a particular columns
+occupied by your marker, or diagonally along one of the two diagonals
+of the board.  
+
+When the game indicates that it is your turn, enter the spot where you
+would like to place your marker in the form of an ordered pair inside 
+of parentheses.  The first number should be the row of the spot that
+you would like to play, where the top row is row 1, and the bottom row
+is row 3.  Then you should type a comma, a space (optional), and then 
+the number corresponding to the column of that row where you would like
+to place your marker.  The leftmost column is indicated by column 1, and
+the rightmost column is indicated by column 3.  
