@@ -4,9 +4,17 @@ class GameController
 
     def initialize
         puts "\nWelcome to Terminal Tic-Tac-Toe!\n\n"
-        instructions = File.open "instructions.txt", "r"
-        instructions.readlines.each {|line| puts line }
-        puts ""
+        print "Would you like to view the instructions? (\"yes\"/\"no\") > "
+        choice = gets.chomp
+        choice =~ /^(yes|Yes|YES|y|Y|no|No|NO|n|N)$/
+        if $1 != nil then
+            if $1[0] == "y" || $1[0] == "Y"
+                puts ""
+                instructions = File.open "instructions.txt", "r"
+                instructions.readlines.each {|line| puts line }
+                puts ""
+            end
+        end
 
         print "Enter Player 1 Name: "
         player1 = gets.chomp
@@ -32,15 +40,27 @@ class GameController
             if num_turns == 9 then
                 break
             end
+            valid_move = false
+            until valid_move do
+                print "#{@player1}, enter your move: "
+                player1_move = gets.chomp
+                player1_move =~ /^ *\(([1-3]), *([1-3])\) *$/
 
-            print "#{@player1}, enter your move: "
-            player1_move = gets.chomp
-            player1_move =~ /^ *\(([1-3]), *([1-3])\) *$/
-
-            player1_row = $1.to_i - 1
-            player1_col = $2.to_i - 1
-            @board.state[player1_row][player1_col] = "X"
-            num_turns += 1
+                if $1 != nil then
+                    player1_row = $1.to_i - 1
+                    player1_col = $2.to_i - 1
+                    
+                    if @board.state[player1_row][player1_col] == " " then
+                        @board.state[player1_row][player1_col] = "X"
+                        num_turns += 1
+                        valid_move = true
+                    else
+                        puts "--> Invalid Move!"
+                    end
+                else
+                    puts "--> Invalid Move!"
+                end
+            end
 
             puts "Game Board: "
             puts @board.to_s
@@ -54,15 +74,27 @@ class GameController
                 break
             end
 
-            print "#{@player2}, enter your move: "
-            player2_move = gets.chomp
-            player2_move =~ /^ *\(([1-3]), *([1-3])\) *$/
+            valid_move = false
+            
+            until valid_move do 
+                print "#{@player2}, enter your move: "
+                player2_move = gets.chomp
+                player2_move =~ /^ *\(([1-3]), *([1-3])\) *$/
 
-            player2_row = $1.to_i - 1
-            player2_col = $2.to_i - 1
-            @board.state[player2_row][player2_col] = "O"
-            num_turns += 1
-
+                if $1 != nil then
+                    player2_row = $1.to_i - 1
+                    player2_col = $2.to_i - 1
+                    if @board.state[player2_row][player2_col] == " " then
+                        @board.state[player2_row][player2_col] = "O"
+                        num_turns += 1
+                        valid_move = true
+                    else
+                        puts "--> Invalid Move!"
+                    end
+                else   
+                    puts "--> Invalid Move!"
+                end
+            end
 
             puts "Game Board: "
             puts @board           
