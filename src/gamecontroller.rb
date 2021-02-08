@@ -4,7 +4,22 @@ class GameController
 
     def initialize
         puts "\nWelcome to Terminal Tic-Tac-Toe!\n\n"
-        print "Would you like to view the instructions? (\"yes\"/\"no\") > "
+
+        print "Enter Player 1 Name: "
+        player1 = gets.chomp
+        print "Enter Player 2 Name: "
+        player2 = gets.chomp
+
+        # randomize who goes first.
+        if rand(2) == 1 then
+            @player1 = player1 # name of player 1
+            @player2 = player2 # name of player 2
+        else
+            @player2 = player1
+            @player1 = player2
+        end
+
+        print "\nWould you like to view the instructions? (\"yes\"/\"no\") > "
         choice = gets.chomp
         choice =~ /^(yes|Yes|YES|y|Y|no|No|NO|n|N)$/
         if $1 != nil then
@@ -13,16 +28,12 @@ class GameController
                 instructions = File.open "instructions.txt", "r"
                 instructions.readlines.each {|line| puts line }
                 puts ""
+                puts "Type \"help\" at any point to view the instructions again."
+            else
+                puts "\nType \"help\" at any point to view the instructions."
             end
         end
 
-        print "Enter Player 1 Name: "
-        player1 = gets.chomp
-        print "Enter Player 2 Name: "
-        player2 = gets.chomp
-
-        @player1 = player1 # name of player 1
-        @player2 = player2 # name of player 2
         @board = Board.new
         start_game
     end
@@ -30,6 +41,8 @@ class GameController
     def start_game
         puts "\nInitial Game Board: "
         print @board.to_s
+
+        print "\n#{@player1} will go first!\n\n"
         
         take_turns    
     end
@@ -57,6 +70,15 @@ class GameController
                     else
                         puts "--> Invalid Move!"
                     end
+                elsif player1_move =~ /^[Hh][Ee][Ll][Pp]$/ then
+                    puts ""
+                    instructions = File.open "instructions.txt", "r"
+                    instructions.readlines.each {|line| puts line }
+                    puts ""
+                    print "Press enter to continue playing "
+                    gets
+                    puts "\nGame Board: "
+                    puts @board.to_s
                 else
                     puts "--> Invalid Move!"
                 end
@@ -91,6 +113,15 @@ class GameController
                     else
                         puts "--> Invalid Move!"
                     end
+                elsif player2_move =~ /^[Hh][Ee][Ll][Pp]$/ then
+                    puts ""
+                    instructions = File.open "instructions.txt", "r"
+                    instructions.readlines.each {|line| puts line }
+                    puts ""
+                    print "Press enter to continue playing "
+                    gets
+                    puts "\nGame Board: "
+                    puts @board.to_s
                 else   
                     puts "--> Invalid Move!"
                 end
