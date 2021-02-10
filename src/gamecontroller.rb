@@ -205,5 +205,3 @@ class GameController
         end
     end
 end
-
-GameController.new
