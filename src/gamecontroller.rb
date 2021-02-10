@@ -29,9 +29,9 @@ class GameController
                 instructions = File.open "instructions.txt", "r"
                 instructions.readlines.each {|line| puts line }
                 puts ""
-                puts "Type \"help\" at any point to view the instructions again."
+                puts "Type \"help\" at any point during the game to view the instructions again."
             else
-                puts "\nType \"help\" at any point to view the instructions."
+                puts "\nType \"help\" at any point during the game to view the instructions."
             end
         end
 
@@ -40,17 +40,44 @@ class GameController
     end
     
     def start_game
-        puts "\nInitial Game Board: "
-        print @board.to_s
+        play_again = true
+        first_game = true
+        while play_again do
+            unless first_game then
+                print "\nEnter Player 1 Name: "
+                player1 = gets.chomp
+                print "Enter Player 2 Name: "
+                player2 = gets.chomp
 
-        print "\n#{@player1} will go first!\n\n"
-        
-        take_turns    
+                # randomize who goes first.
+                if rand(2) == 1 then
+                    @player1 = player1 # name of player 1
+                    @player2 = player2 # name of player 2
+                else
+                    @player2 = player1
+                    @player1 = player2
+                end
+            end
+            @board = Board.new
+            puts "\nInitial Game Board: "
+            print @board.to_s
+
+            print "\n#{@player1} will go first!\n\n"
+            
+            take_turns    
+
+            print "\nPlay Again? (y/n) > "
+            answer = gets.chomp
+            unless answer =~ /^y|Y|yes|YES|Yes$/ then
+                play_again = false
+            end
+            first_game = false
+        end
     end
 
     def take_turns
         num_turns = 0;
-        until winner = @board.game_over
+        until winner = @board.game_over do
             if num_turns == 9 then
                 break
             end
