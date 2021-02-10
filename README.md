@@ -32,9 +32,9 @@ game of tic-tac-toe.
 
 ### How to run the game
 
-Start the game by running the file gamecontroller.rb in the terminal with
+Start the game by running the file tictactoe.rb in the terminal with
 
-`ruby gamecontroller.rb`
+`ruby tictactoe.rb`
 
 ### References
 
