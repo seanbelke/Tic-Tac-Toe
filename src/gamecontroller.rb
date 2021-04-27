@@ -29,9 +29,9 @@ class GameController
                 instructions = File.open "instructions.txt", "r"
                 instructions.readlines.each {|line| puts line }
                 puts ""
-                puts "Type \"help\" at any point to view the instructions again."
+                puts "Type \"help\" at any point during the game to view the instructions again."
             else
-                puts "\nType \"help\" at any point to view the instructions."
+                puts "\nType \"help\" at any point during the game to view the instructions."
             end
         end
 
@@ -192,5 +192,3 @@ class GameController
         end          
     end
 end
-
-GameController.new
