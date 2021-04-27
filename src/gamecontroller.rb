@@ -35,22 +35,37 @@ class GameController
             end
         end
 
-        @board = Board.new
         start_game
     end
     
     def start_game
-        puts "\nInitial Game Board: "
-        print @board.to_s
+        play_again = true
+        while play_again do
+            # possibly swap who goes first
+            if rand(2) == 1 then
+                temp = @player1
+                @player1 = @player2 
+                @player2 = temp 
+            end
+            @board = Board.new
+            puts "\nInitial Game Board: "
+            print @board.to_s
 
-        print "\n#{@player1} will go first!\n\n"
-        
-        take_turns    
+            print "\n#{@player1} will go first!\n\n"
+            
+            take_turns    
+
+            puts ""
+            print "Play again? (y/n) > "
+            answer = gets.chomp
+            puts ""
+            play_again = false unless answer =~ /y|Y|yes|YES/
+        end
     end
 
     def take_turns
         num_turns = 0;
-        until winner = @board.game_over
+        until winner = @board.game_over do
             if num_turns == 9 then
                 break
             end
@@ -167,7 +182,6 @@ class GameController
                     end
                 end
             end
-
             puts "Game Board: "
             puts @board.to_s     
         end
@@ -175,7 +189,7 @@ class GameController
             puts "It's a draw!"
         elsif winner == "O" then
             puts "#{@player2} is the winner!"
-        end
+        end          
     end
 end
 
